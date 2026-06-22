@@ -45,6 +45,8 @@ export async function onRequestPost(context) {
   });
 
   if (!response.ok) {
+    const detail = await response.text();
+    console.error('Supabase register failed', response.status, detail.slice(0, 500));
     return json({ error: 'Registration failed' }, 502);
   }
 
