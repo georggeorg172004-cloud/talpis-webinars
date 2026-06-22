@@ -7,7 +7,7 @@ const JSON_HEADERS = {
 export async function onRequestPost(context) {
   const { request, env } = context;
 
-  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_KEY) {
+  if (!env.SUPABASE_URL || !env.SUPABASE_PUBLISHABLE_KEY) {
     return json({ error: 'Server is not configured' }, 500);
   }
 
@@ -30,8 +30,8 @@ export async function onRequestPost(context) {
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: {
-      apikey: env.SUPABASE_SERVICE_KEY,
-      Authorization: `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+      apikey: env.SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${env.SUPABASE_PUBLISHABLE_KEY}`,
       'Content-Type': 'application/json',
       Prefer: 'return=minimal'
     },

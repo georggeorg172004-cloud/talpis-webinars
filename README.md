@@ -22,6 +22,7 @@
 Значения хранятся только в Cloudflare Pages Settings / Environment variables:
 
 - `SUPABASE_URL`
+- `SUPABASE_PUBLISHABLE_KEY`
 - `SUPABASE_SERVICE_KEY`
 - `ADMIN_PASSWORD_HASH`
 - `SESSION_SECRET`
@@ -39,7 +40,7 @@ Cloudflare Pages автоматически забирает `functions/` из �
 ## Безопасность
 
 - Публичная страница не содержит Supabase service key.
-- Регистрация идет через `/api/register`.
+- Регистрация идет через `/api/register` и использует publishable key на backend-стороне.
 - Админские endpoints закрыты HttpOnly cookie-сессией.
 - CSV экспорт доступен только после входа в админку.
 - Supabase service key используется только на backend-стороне Cloudflare Pages Functions.
