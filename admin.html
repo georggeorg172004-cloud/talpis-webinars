@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Экспорт регистраций</title>
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; color: #f5f1ea; background: #0b0b0e; font: 16px system-ui, sans-serif; }
+    main { width: min(480px, 100%); padding: 30px; border: 1px solid #51442f; border-radius: 18px; background: #17161a; }
+    h1 { margin: 0 0 10px; font-size: 24px; }
+    p { color: #aaa4a2; line-height: 1.5; }
+    input, button { width: 100%; margin-top: 12px; padding: 13px 14px; border-radius: 9px; font: inherit; box-sizing: border-box; }
+    input { border: 1px solid #49434a; color: #fff; background: #242229; }
+    button { border: 0; color: #17120d; background: #e0b978; font-weight: 700; cursor: pointer; }
+    button.secondary { color: #f5f1ea; background: #3a3026; }
+    #status { min-height: 20px; margin-top: 14px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Экспорт регистраций</h1>
+    <p>Введите секретный ключ администратора. Скачается CSV-файл с зарегистрировавшимися.</p>
+    <input id="token" type="password" autocomplete="off" placeholder="Секретный ключ">
+    <button class="download" data-source="" data-filename="talpis-leads.csv">Скачать все регистрации</button>
+    <button class="download secondary" data-source="efir021026" data-filename="talpis-leads-efir021026.csv">Скачать CSV эфира «Состояние»</button>
+    <div id="status" aria-live="polite"></div>
+  </main>
+  <script>
+    document.querySelectorAll(".download").forEach(function (button) { button.addEventListener("click", async function () {
+      const status = document.getElementById("status");
+      const token = document.getElementById("token").value.trim();
+      if (!token) { status.textContent = "Введите ключ."; return; }
+      status.textContent = "Готовим файл…";
+      try {
+        const source = button.dataset.source;
+        const endpoint = source ? "/api/leads?source=" + encodeURIComponent(source) : "/api/leads";
+        const response = await fetch(endpoint, { headers: { Authorization: "Bearer " + token } });
+        if (!response.ok) throw new Error(response.status === 401 ? "Неверный ключ." : "Ошибка экспорта.");
+        const blob = await response.blob();
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = button.dataset.filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+        status.textContent = "Файл скачан.";
+      } catch (error) {
+        status.textContent = error.message;
+      }
+    }); });
+  </script>
+</body>
+</html>
