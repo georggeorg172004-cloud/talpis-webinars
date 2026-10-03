@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Запись эфира с Леонидом Тальписом</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0d0f;color:#e8e4dc;font-family:"Golos Text",sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;-webkit-user-select:none;user-select:none}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 50% 0%,rgba(201,168,76,.16),transparent 34%),linear-gradient(180deg,rgba(10,10,12,.7),#0d0d0f 62%);z-index:0;pointer-events:none}
+.header,.page-title-bar,.main{position:relative;z-index:1}
+.header{width:100%;padding:16px 32px;background:rgba(13,13,15,.72);border-bottom:1px solid #1e1e24;display:flex;align-items:center;backdrop-filter:blur(8px)}
+.live-dot{width:8px;height:8px;background:#e63946;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.logo{font-family:"Unbounded",sans-serif;font-size:16px;font-weight:700;background:linear-gradient(135deg,#c9a84c 0%,#f5d380 50%,#b8860b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.15em;margin-left:auto}
+.page-title-bar{width:100%;padding:10px 32px;text-align:center}
+.page-title-text{font-family:"Unbounded",sans-serif;font-size:14px;font-weight:600;color:rgba(232,228,220,.85);letter-spacing:.06em;text-transform:uppercase}
+.page-title-text span{background:linear-gradient(135deg,#c9a84c,#f5d380);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.main{display:flex;width:100%;max-width:980px;padding:20px 24px 40px;flex-direction:column;align-items:center;flex:1}
+.lead-gate{width:100%;max-width:520px;padding:28px;background:rgba(17,17,20,.9);border:1px solid rgba(201,168,76,.22);border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.45)}
+.lead-title{font-family:"Unbounded",sans-serif;font-size:20px;font-weight:600;line-height:1.25;margin-bottom:10px;color:#f5d380;text-align:center}
+.lead-note{font-size:15px;line-height:1.45;color:rgba(232,228,220,.72);text-align:center;margin-bottom:22px}
+.lead-form{display:flex;flex-direction:column;gap:16px}
+.field-label{display:flex;flex-direction:column;gap:8px;font-size:15px;font-weight:600;color:rgba(232,228,220,.78)}
+.lead-form input{width:100%;height:54px;border-radius:16px;border:1px solid rgba(245,211,128,.32);background:#0d0d0f;color:#e8e4dc;font:16px "Golos Text",sans-serif;padding:0 18px;outline:none}
+.lead-form input::placeholder{color:rgba(232,228,220,.42);font-weight:600}
+.lead-form input:focus{border-color:#c9a84c;box-shadow:0 0 0 3px rgba(201,168,76,.15)}
+.consent-label{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;font-size:13px;line-height:1.38;color:rgba(232,228,220,.72)}
+.consent-label input{width:22px;height:22px;border-radius:4px;accent-color:#d8b85b;margin-top:1px;padding:0}
+.lead-form button{height:48px;border:0;border-radius:8px;background:linear-gradient(135deg,#c9a84c,#f5d380);color:#0d0d0f;font-family:"Unbounded",sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:6px}
+.lead-form button:disabled{opacity:.7;cursor:default}
+.lead-status{min-height:20px;font-size:13px;line-height:1.4;color:rgba(232,228,220,.68);text-align:center;margin-top:12px}
+.video-col{width:100%;display:none;flex-direction:column;gap:18px}
+.video-col.active{display:flex}
+.video-wrap{position:relative;width:100%;border-radius:12px;overflow:hidden;background:#111;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+.video-wrap video{display:block;width:100%;height:auto}
+.cta-banner{display:block;width:100%;padding:18px 22px;border-radius:10px;border:1px solid rgba(245,211,128,.34);background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(17,17,20,.92));box-shadow:0 6px 28px rgba(0,0,0,.35);text-decoration:none;color:#e8e4dc}
+.cta-banner:hover{border-color:rgba(245,211,128,.7);transform:translateY(-1px)}
+.cta-title{font-family:"Unbounded",sans-serif;font-size:20px;font-weight:700;line-height:1.25;color:#f5d380;margin-bottom:6px}
+.cta-text{font-size:16px;line-height:1.4;color:rgba(232,228,220,.9)}
+.tg-warning{display:none;text-align:center;padding:40px 20px}
+.tg-warning p{font-size:16px;color:rgba(232,228,220,.85);margin-bottom:20px;line-height:1.5}
+.tg-warning a{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#c9a84c,#f5d380);color:#0d0d0f;text-decoration:none;font-family:"Unbounded",sans-serif;font-size:14px;font-weight:600;border-radius:30px}
+.loading-msg{text-align:center;padding:60px 20px;font-size:15px;color:rgba(232,228,220,.5)}
+@media(max-width:900px){.main{padding:16px}.header{padding:14px 16px}.page-title-bar{padding:8px 16px}.lead-gate{padding:22px}.cta-title{font-size:17px}.cta-text{font-size:14px}.cta-banner{padding:15px 16px}}
+</style>
+</head>
+<body>
+<div class="header"><div class="live-dot"></div><span class="logo">TALPIS</span></div>
+<div class="page-title-bar"><span class="page-title-text"><span>Запись эфира с Леонидом Тальписом</span></span></div>
+<div class="main">
+  <div class="tg-warning" id="tgWarning">
+    <p>Для просмотра видео откройте страницу в браузере</p>
+    <a id="openBrowser" href="#">Открыть в браузере</a>
+  </div>
+  <div class="lead-gate" id="leadGate">
+    <div class="lead-title">Доступ к вебинару</div>
+    <div class="lead-note">Заполните короткую форму, чтобы открыть видео.</div>
+    <form class="lead-form" id="leadForm">
+      <label class="field-label">ФИО<input id="leadName" name="name" type="text" autocomplete="name" placeholder="Иванова Анна" required></label>
+      <label class="field-label">Email<input id="leadEmail" name="email" type="email" autocomplete="email" placeholder="name@email.com" required></label>
+      <label class="field-label">Телефон<input id="leadPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 922 625-66-23" required></label>
+      <label class="consent-label"><input id="leadConsent" type="checkbox" required><span>Нажимая кнопку, вы соглашаетесь с обработкой персональных данных и политикой конфиденциальности.</span></label>
+      <button id="leadSubmit" type="submit">Открыть видео</button>
+    </form>
+    <div class="lead-status" id="leadStatus"></div>
+  </div>
+  <div class="video-col" id="videoContent">
+    <div class="video-wrap">
+      <div class="loading-msg" id="loadingMsg">Загрузка видео...</div>
+      <video id="vid" controls controlsList="nodownload noplaybackrate nofullscreen" disablePictureInPicture preload="metadata" playsinline style="display:none;"></video>
+    </div>
+    <a class="cta-banner" href="https://leonidtalpis.com/the_assembly_point/payment?utm_source=efir17062026&utm_medium=zapis&utm_campaign=tochka200626" target="_blank" rel="noopener">
+      <div class="cta-title">Два дня до «Точки сборки»</div>
+      <div class="cta-text">Оставляйте заявку для бронирования места на семинаре</div>
+    </a>
+  </div>
+</div>
+<script>
+(function(){
+  var viewersEndpoint='/api/register';
+  var ua=navigator.userAgent||'';
+  var isTelegram=/Telegram/i.test(ua)||/TelegramBot/i.test(ua)||window.TelegramWebviewProxy;
+  var isVK=/VKAndroidApp|vkdesktop|VK\//i.test(ua);
+  var isInstagram=/Instagram/i.test(ua);
+  var isFacebook=/FBAN|FBAV|FB_IAB/i.test(ua);
+  var isInAppBrowser=isTelegram||isVK||isInstagram||isFacebook;
+  var pageUrl=window.location.href;
+  var leadGate=document.getElementById('leadGate');
+  var videoContent=document.getElementById('videoContent');
+  if(isInAppBrowser){
+    document.getElementById('tgWarning').style.display='block';
+    leadGate.style.display='none';
+    videoContent.style.display='none';
+    var openBtn=document.getElementById('openBrowser');
+    openBtn.href=pageUrl;
+    openBtn.addEventListener('click',function(e){e.preventDefault();window.open(pageUrl,'_system')});
+    return;
+  }
+  var v=document.getElementById('vid');
+  var loading=document.getElementById('loadingMsg');
+  v.src='https://pub-dcba19fb04ed402b82e4977f57755384.r2.dev/GMT20260617-153138_Recording_2400x1350_cut_35-44_to_2-20-16.mp4';
+  function showVideo(){
+    leadGate.style.display='none';
+    videoContent.classList.add('active');
+    v.style.display='block';
+    loading.style.display='none';
+  }
+  if(localStorage.getItem('talpisViewerSubmitted')==='1')showVideo();
+  document.getElementById('leadForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var submit=document.getElementById('leadSubmit');
+    var status=document.getElementById('leadStatus');
+    var payload={
+      name:document.getElementById('leadName').value.trim(),
+      email:document.getElementById('leadEmail').value.trim(),
+      phone:normalizePhone(document.getElementById('leadPhone').value),
+      video_page:window.location.href,
+      user_agent:navigator.userAgent||''
+    };
+    submit.disabled=true;
+    submit.textContent='Отправляем...';
+    status.textContent='';
+    fetch(viewersEndpoint,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    }).then(function(response){
+      if(!response.ok)throw new Error('Register error');
+      localStorage.setItem('talpisViewerSubmitted','1');
+      showVideo();
+    }).catch(function(){
+      status.textContent='Не получилось отправить форму. Проверьте интернет и попробуйте еще раз.';
+      submit.disabled=false;
+      submit.textContent='Открыть видео';
+    });
+  });
+  v.addEventListener('contextmenu',function(e){e.preventDefault()});
+  document.addEventListener('contextmenu',function(e){e.preventDefault()});
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey&&(e.key==='s'||e.key==='S'||e.key==='u'||e.key==='U'))||(e.ctrlKey&&e.shiftKey&&(e.key==='i'||e.key==='I'||e.key==='j'||e.key==='J'))||e.key==='F12'){e.preventDefault();return false}
+  });
+  document.addEventListener('dragstart',function(e){e.preventDefault()});
+
+  function normalizePhone(value){
+    var input=String(value||'').trim();
+    var digits=input.replace(/\D/g,'');
+    if(input.charAt(0)==='+')return '+'+digits;
+    if(digits.length===10&&digits.charAt(0)==='9')return '+7'+digits;
+    if(digits.length===11&&digits.charAt(0)==='8')return '+7'+digits.slice(1);
+    if(digits.length===11&&digits.charAt(0)==='7')return '+'+digits;
+    return input;
+  }
+})();
+</script>
+</body>
+</html>
