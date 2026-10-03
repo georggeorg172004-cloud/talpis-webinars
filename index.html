@@ -242,6 +242,9 @@
       var form = document.getElementById('leadForm');
       var formError = document.getElementById('formError');
       var videos = document.querySelectorAll('video[data-src]');
+      var registerEndpoint = window.location.hostname.endsWith('.github.io')
+        ? 'https://talpis-webinars.pages.dev/api/register'
+        : '/api/register';
 
       videos.forEach(function (video) {
         video.src = encodeURI(video.dataset.src);
@@ -270,7 +273,7 @@
         var button = form.querySelector('button');
         button.disabled = true;
         button.textContent = 'Сохраняем регистрацию…';
-        var request = fetch('/api/register', {
+        var request = fetch(registerEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)

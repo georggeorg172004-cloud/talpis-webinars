@@ -90,6 +90,9 @@
       var form = document.getElementById('leadForm');
       var formError = document.getElementById('formError');
       var video = document.querySelector('video[data-src]');
+      var registerEndpoint = window.location.hostname.endsWith('.github.io')
+        ? 'https://talpis-webinars.pages.dev/api/register'
+        : '/api/register';
       video.src = encodeURI(video.dataset.src);
       video.addEventListener('loadedmetadata', function () {
         var loading = video.parentElement.querySelector('.loading-msg');
@@ -103,7 +106,7 @@
         var button = form.querySelector('button');
         button.disabled = true;
         button.textContent = 'Сохраняем регистрацию…';
-        fetch('/api/register', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+        fetch(registerEndpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
           name:document.getElementById('name').value.trim(), email:document.getElementById('email').value.trim(), phone:document.getElementById('phone').value.trim(), source:'vebway190926'
         }) }).then(function (response) {
           if (!response.ok) throw new Error('registration_failed');
